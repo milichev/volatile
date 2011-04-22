@@ -1,0 +1,69 @@
+﻿<Window x:Class="LeDoyen.AtContract.Client.ComposeDocument" 
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+		Height="350" Width="606" Title="Create a document" x:Name="ComposeDoc">
+    <StackPanel>
+        <TextBlock FontWeight="Bold" Text="Agreement" Height="25"/>
+        <Grid DataContext="{Binding CurrentAgreement, ElementName=ComposeDoc}" HorizontalAlignment="Left" Width="577">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Agreement Number" Margin="0 4 0 0" />
+            <TextBox Grid.Row="0" Grid.Column="1" Width="308" Text="{Binding Path=AgreementNumber, Mode=TwoWay}" HorizontalAlignment="Left" />
+
+            <TextBlock Grid.Row="1" Text="Agreement Date" Margin="0,4,0,0" />
+            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=AgreementDate, Mode=TwoWay}" HorizontalAlignment="Left" />
+
+            <TextBlock Grid.Row="2" Text="Contractor" Margin="0 4 0 0" />
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                <ComboBox Name="cmbContractor" Width="308" HorizontalAlignment="Left"
+                  SelectedValue="{Binding Mode=TwoWay, Path=ContracrorID}" 
+                  ItemsSource="{Binding Path=Context.Contractors}" IsEditable="True" TextSearch.TextPath="FullName"
+                  SelectedValuePath="ID" DisplayMemberPath="FullName" IsSynchronizedWithCurrentItem="True" />
+                <Button Content="+" Width="21" Margin="3,0,0,0" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="3" Text="Project" Margin="0 4 0 0" />
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <ComboBox Name="cmbProject" Width="308" HorizontalAlignment="Left"
+                  SelectedValue="{Binding Mode=TwoWay, Path=ProjectID}" 
+                  ItemsSource="{Binding Path=Context.Projects}" IsEditable="True" TextSearch.TextPath="NameEn"
+                  SelectedValuePath="ID" DisplayMemberPath="NameEn" />
+                <Button Content="+" Width="21" Margin="3,0,0,0" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="4" Text="Service from / to" Margin="0,4,0,0" />
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=ServiceStartDate, Mode=TwoWay}"  Width="150"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=ServiceEndDate, Mode=TwoWay}" Margin="8 0 0 0"  Width="150"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="5" Text="Payment Due Date / Type" Margin="0 4 0 0" />
+            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                <DatePicker SelectedDate="{Binding Path=PaymentDueDate, Mode=TwoWay}"  Width="150"/>
+                <ComboBox Name="cmbPaymentTypes" Width="150" HorizontalAlignment="Left" Margin="8 0 0 0"
+                  SelectedValue="{Binding Mode=TwoWay, Path=PaymentTypeID}" 
+                  ItemsSource="{Binding Path=PaymentTypes}" IsEditable="True" TextSearch.TextPath="NameEn"
+                  SelectedValuePath="ID" DisplayMemberPath="NameEn" IsSynchronizedWithCurrentItem="True"
+                  SelectionChanged="cmbProcess_SelectionChanged"/>
+                <Button Content="+" Width="21" Margin="3,0,0,0" />
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="47" Width="168">
+            <Button Content="Save" Height="23" Name="btnSave" Width="75" Click="btnSave_Click" />
+            <Button Content="Document" Height="23" Margin="6,0,0,0" Name="btnDoc" Width="75" Click="btnDoc_Click" />
+        </StackPanel>
+    </StackPanel>
+</Window>

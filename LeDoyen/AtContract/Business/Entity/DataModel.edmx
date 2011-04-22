@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LeDoyenModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="LeDoyenModelStoreContainer">
+          <EntitySet Name="ldn_Agreements" EntityType="LeDoyenModel.Store.ldn_Agreements" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ldn_Contractors" EntityType="LeDoyenModel.Store.ldn_Contractors" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ldn_Languages" EntityType="LeDoyenModel.Store.ldn_Languages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ldn_PaymentTypes" EntityType="LeDoyenModel.Store.ldn_PaymentTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ldn_Projects" EntityType="LeDoyenModel.Store.ldn_Projects" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ldn_Agreements_ldn_Contractors" Association="LeDoyenModel.Store.FK_ldn_Agreements_ldn_Contractors">
+            <End Role="ldn_Contractors" EntitySet="ldn_Contractors" />
+            <End Role="ldn_Agreements" EntitySet="ldn_Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ldn_Agreements_ldn_PaymentTypes" Association="LeDoyenModel.Store.FK_ldn_Agreements_ldn_PaymentTypes">
+            <End Role="ldn_PaymentTypes" EntitySet="ldn_PaymentTypes" />
+            <End Role="ldn_Agreements" EntitySet="ldn_Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ldn_Agreements_ldn_Projects" Association="LeDoyenModel.Store.FK_ldn_Agreements_ldn_Projects">
+            <End Role="ldn_Projects" EntitySet="ldn_Projects" />
+            <End Role="ldn_Agreements" EntitySet="ldn_Agreements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ldn_Agreements">
+          <Key>
+            <PropertyRef Name="AgreementID" />
+          </Key>
+          <Property Name="AgreementID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AgreementNumber" Type="int" Nullable="false" />
+          <Property Name="AgreementDate" Type="date" Nullable="false" />
+          <Property Name="ServiceStartDate" Type="date" Nullable="false" />
+          <Property Name="ServiceEndDate" Type="date" Nullable="false" />
+          <Property Name="PaymentDueDate" Type="date" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ContractorID" Type="int" Nullable="false" />
+          <Property Name="PaymentTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ldn_Contractors">
+          <Key>
+            <PropertyRef Name="ContractorID" />
+          </Key>
+          <Property Name="ContractorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="MiddleName" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="EnglishFullName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="TaxID" Type="char" MaxLength="10" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="AddressEn" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="AddressUk" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="PassportNumber" Type="nvarchar" Nullable="false" MaxLength="8" />
+          <Property Name="PassportIssuedBy" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PassportIssuedDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ldn_Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CultureName" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="CultureID" Type="int" Nullable="false" />
+          <Property Name="LanguageName" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="NativeLanguageName" Type="nvarchar" Nullable="false" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="ldn_PaymentTypes">
+          <Key>
+            <PropertyRef Name="PaymentTypeID" />
+          </Key>
+          <Property Name="PaymentTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NameEn" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="NameUa" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="NameGenitiveEn" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="NameGenitiveUa" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="ldn_Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TypeNameUk" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="NameUk" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="WorkNameUk" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="TypeNameEn" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="NameEn" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="WorkNameEn" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_ldn_Agreements_ldn_Contractors">
+          <End Role="ldn_Contractors" Type="LeDoyenModel.Store.ldn_Contractors" Multiplicity="1" />
+          <End Role="ldn_Agreements" Type="LeDoyenModel.Store.ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_Contractors">
+              <PropertyRef Name="ContractorID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ldn_Agreements_ldn_PaymentTypes">
+          <End Role="ldn_PaymentTypes" Type="LeDoyenModel.Store.ldn_PaymentTypes" Multiplicity="1" />
+          <End Role="ldn_Agreements" Type="LeDoyenModel.Store.ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_PaymentTypes">
+              <PropertyRef Name="PaymentTypeID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="PaymentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ldn_Agreements_ldn_Projects">
+          <End Role="ldn_Projects" Type="LeDoyenModel.Store.ldn_Projects" Multiplicity="1" />
+          <End Role="ldn_Agreements" Type="LeDoyenModel.Store.ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LeDoyenModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="LeDoyenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agreements" EntityType="LeDoyenModel.Agreement" />
+          <EntitySet Name="Contractors" EntityType="LeDoyenModel.Contractor" />
+          <EntitySet Name="Languages" EntityType="LeDoyenModel.Language" />
+          <EntitySet Name="PaymentTypes" EntityType="LeDoyenModel.PaymentType" />
+          <EntitySet Name="Projects" EntityType="LeDoyenModel.Project" />
+          <AssociationSet Name="FK_ldn_Agreements_ldn_Contractors" Association="LeDoyenModel.FK_ldn_Agreements_ldn_Contractors">
+            <End Role="ldn_Contractors" EntitySet="Contractors" />
+            <End Role="ldn_Agreements" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ldn_Agreements_ldn_PaymentTypes" Association="LeDoyenModel.FK_ldn_Agreements_ldn_PaymentTypes">
+            <End Role="ldn_PaymentTypes" EntitySet="PaymentTypes" />
+            <End Role="ldn_Agreements" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ldn_Agreements_ldn_Projects" Association="LeDoyenModel.FK_ldn_Agreements_ldn_Projects">
+            <End Role="ldn_Projects" EntitySet="Projects" />
+            <End Role="ldn_Agreements" EntitySet="Agreements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Agreement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AgreementNumber" Nullable="false" />
+          <Property Type="DateTime" Name="AgreementDate" Nullable="false" />
+          <Property Type="DateTime" Name="ServiceStartDate" Nullable="false" />
+          <Property Type="DateTime" Name="ServiceEndDate" Nullable="false" />
+          <Property Type="DateTime" Name="PaymentDueDate" Nullable="false" />
+          <Property Type="Int32" Name="ContractorID" Nullable="false" />
+          <Property Type="Int32" Name="PaymentTypeID" Nullable="false" />
+          <NavigationProperty Name="Contractor" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_Contractors" FromRole="ldn_Agreements" ToRole="ldn_Contractors" />
+          <NavigationProperty Name="PaymentType" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_PaymentTypes" FromRole="ldn_Agreements" ToRole="ldn_PaymentTypes" />
+          <Property Type="Int32" Name="ProjectID" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_Projects" FromRole="ldn_Agreements" ToRole="ldn_Projects" />
+        </EntityType>
+        <EntityType Name="Contractor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EnglishFullName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TaxID" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="BirthDate" />
+          <Property Type="String" Name="AddressEn" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AddressUk" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassportNumber" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassportIssuedBy" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PassportIssuedDate" Nullable="false" />
+          <NavigationProperty Name="Agreements" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_Contractors" FromRole="ldn_Contractors" ToRole="ldn_Agreements" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CultureName" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CultureID" Nullable="false" />
+          <Property Type="String" Name="LanguageName" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NativeLanguageName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameEn" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameUa" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameGenitiveEn" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameGenitiveUa" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agreements" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_PaymentTypes" FromRole="ldn_PaymentTypes" ToRole="ldn_Agreements" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TypeNameUk" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameUk" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkNameUk" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TypeNameEn" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameEn" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkNameEn" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agreements" Relationship="LeDoyenModel.FK_ldn_Agreements_ldn_Projects" FromRole="ldn_Projects" ToRole="ldn_Agreements" />
+        </EntityType>
+        <Association Name="FK_ldn_Agreements_ldn_Contractors">
+          <End Type="LeDoyenModel.Contractor" Role="ldn_Contractors" Multiplicity="1" />
+          <End Type="LeDoyenModel.Agreement" Role="ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_Contractors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ldn_Agreements_ldn_PaymentTypes">
+          <End Type="LeDoyenModel.PaymentType" Role="ldn_PaymentTypes" Multiplicity="1" />
+          <End Type="LeDoyenModel.Agreement" Role="ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_PaymentTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="PaymentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ldn_Agreements_ldn_Projects">
+          <End Type="LeDoyenModel.Project" Role="ldn_Projects" Multiplicity="1" />
+          <End Type="LeDoyenModel.Agreement" Role="ldn_Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ldn_Projects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ldn_Agreements">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LeDoyenModelStoreContainer" CdmEntityContainer="LeDoyenEntities">
+          <EntitySetMapping Name="Agreements">
+            <EntityTypeMapping TypeName="LeDoyenModel.Agreement">
+              <MappingFragment StoreEntitySet="ldn_Agreements">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
+                <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />
+                <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+                <ScalarProperty Name="ServiceEndDate" ColumnName="ServiceEndDate" />
+                <ScalarProperty Name="ServiceStartDate" ColumnName="ServiceStartDate" />
+                <ScalarProperty Name="AgreementDate" ColumnName="AgreementDate" />
+                <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+                <ScalarProperty Name="ID" ColumnName="AgreementID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contractors">
+            <EntityTypeMapping TypeName="LeDoyenModel.Contractor">
+              <MappingFragment StoreEntitySet="ldn_Contractors">
+                <ScalarProperty Name="PassportIssuedDate" ColumnName="PassportIssuedDate" />
+                <ScalarProperty Name="PassportIssuedBy" ColumnName="PassportIssuedBy" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="AddressUk" ColumnName="AddressUk" />
+                <ScalarProperty Name="AddressEn" ColumnName="AddressEn" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+                <ScalarProperty Name="EnglishFullName" ColumnName="EnglishFullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ContractorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="LeDoyenModel.Language">
+              <MappingFragment StoreEntitySet="ldn_Languages">
+                <ScalarProperty Name="NativeLanguageName" ColumnName="NativeLanguageName" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="CultureID" ColumnName="CultureID" />
+                <ScalarProperty Name="CultureName" ColumnName="CultureName" />
+                <ScalarProperty Name="ID" ColumnName="LanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTypes">
+            <EntityTypeMapping TypeName="LeDoyenModel.PaymentType">
+              <MappingFragment StoreEntitySet="ldn_PaymentTypes">
+                <ScalarProperty Name="NameGenitiveUa" ColumnName="NameGenitiveUa" />
+                <ScalarProperty Name="NameGenitiveEn" ColumnName="NameGenitiveEn" />
+                <ScalarProperty Name="NameUa" ColumnName="NameUa" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="ID" ColumnName="PaymentTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="LeDoyenModel.Project">
+              <MappingFragment StoreEntitySet="ldn_Projects">
+                <ScalarProperty Name="WorkNameEn" ColumnName="WorkNameEn" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="TypeNameEn" ColumnName="TypeNameEn" />
+                <ScalarProperty Name="WorkNameUk" ColumnName="WorkNameUk" />
+                <ScalarProperty Name="NameUk" ColumnName="NameUk" />
+                <ScalarProperty Name="TypeNameUk" ColumnName="TypeNameUk" />
+                <ScalarProperty Name="ID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DataModel" ZoomLevel="86">
+        <EntityTypeShape EntityType="LeDoyenModel.Agreement" Width="1.5" PointX="2.625" PointY="0.625" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="LeDoyenModel.Contractor" Width="1.5" PointX="0.5" PointY="0.5" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="LeDoyenModel.Language" Width="1.5" PointX="7.375" PointY="0.5" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="LeDoyenModel.PaymentType" Width="1.5" PointX="4.75" PointY="0.625" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeDoyenModel.Project" Width="1.5" PointX="4.75" PointY="3.25" Height="2.5571907552083317" />
+        <AssociationConnector Association="LeDoyenModel.FK_ldn_Agreements_ldn_Contractors" >
+          <ConnectorPoint PointX="2" PointY="2.2881982421875" />
+          <ConnectorPoint PointX="2.625" PointY="2.2881982421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="LeDoyenModel.FK_ldn_Agreements_ldn_PaymentTypes" >
+          <ConnectorPoint PointX="4.75" PointY="1.7112939453125" />
+          <ConnectorPoint PointX="4.125" PointY="1.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="LeDoyenModel.FK_ldn_Agreements_ldn_Projects" >
+          <ConnectorPoint PointX="4.75" PointY="3.6006982421875" />
+          <ConnectorPoint PointX="4.125" PointY="3.6006982421875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

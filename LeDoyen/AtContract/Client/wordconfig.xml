@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns="http://ledoyen/contractlink/">
+	<templates>
+		<template name="Agreement" process="LeDoyen.ContractLink.Business.WordAutomation.ContractProcess, LeDoyen.ContractLink.Business">
+			<entities>
+				<number name="AgreementNumber"/>
+				<dateTime name="AgreementDate"/>
+				<lookup name="ContractorFullName" provider="LeDoyen.ContractLink.Tests.TestLookupProvider, LeDoyen.ContractLink.Tests" />
+			</entities>
+		</template>
+	</templates>
+</configuration>
